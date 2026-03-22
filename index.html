@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Market Stats — Live Real Estate Data for DFW Agents</title>
+  <meta name="description" content="A copy-paste widget that shows live neighborhood market stats on your website. Built for Collin County real estate agents. $15/month." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #111827;
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .nav-logo { font-weight: 700; font-size: 18px; }
+    .nav-cta {
+      background: #2563eb;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .nav-cta:hover { background: #1d4ed8; }
+
+    /* HERO */
+    .hero {
+      max-width: 760px;
+      margin: 80px auto 60px;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: #2563eb; }
+    .hero p {
+      font-size: 18px;
+      color: #4b5563;
+      max-width: 560px;
+      margin: 0 auto 36px;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: #2563eb;
+      color: #fff;
+      padding: 16px 36px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .hero-cta:hover { background: #1d4ed8; }
+    .hero-sub {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #9ca3af;
+    }
+
+    /* DEMO */
+    .demo {
+      background: #f9fafb;
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .demo h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .demo p {
+      color: #6b7280;
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+    .demo-widget {
+      display: inline-block;
+      text-align: left;
+    }
+
+    /* PROBLEM */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 72px 24px;
+    }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+    .section h2 {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .section p {
+      font-size: 17px;
+      color: #4b5563;
+      max-width: 620px;
+    }
+
+    /* FEATURES */
+    .features { background: #f9fafb; padding: 72px 24px; }
+    .features-inner { max-width: 860px; margin: 0 auto; }
+    .features-inner .section-label { text-align: center; }
+    .features-inner h2 { text-align: center; margin-bottom: 48px; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .feature {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+    .feature h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .feature p {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    /* CODE */
+    .code-section { max-width: 860px; margin: 0 auto; padding: 72px 24px; }
+    .code-section h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    .code-section > p { color: #6b7280; margin-bottom: 24px; }
+    pre {
+      background: #111827;
+      color: #e5e7eb;
+      padding: 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+
+    /* PRICING */
+    .pricing { background: #f9fafb; padding: 72px 24px; text-align: center; }
+    .pricing h2 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+    .pricing > p { color: #6b7280; margin-bottom: 40px; }
+    .pricing-card {
+      display: inline-block;
+      background: #fff;
+      border: 2px solid #2563eb;
+      border-radius: 16px;
+      padding: 36px 48px;
+      min-width: 300px;
+      text-align: center;
+    }
+    .pricing-amount { font-size: 48px; font-weight: 800; color: #111827; }
+    .pricing-amount span { font-size: 20px; font-weight: 400; color: #6b7280; }
+    .pricing-desc { color: #6b7280; font-size: 15px; margin: 12px 0 28px; }
+    .pricing-features { list-style: none; text-align: left; margin-bottom: 32px; }
+    .pricing-features li {
+      font-size: 15px;
+      padding: 6px 0;
+      color: #374151;
+    }
+    .pricing-features li::before { content: '✓ '; color: #2563eb; font-weight: 700; }
+    .pricing-btn {
+      display: block;
+      background: #2563eb;
+      color: #fff;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .pricing-btn:hover { background: #1d4ed8; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid #f3f4f6;
+      padding: 32px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #9ca3af;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Market Stats</div>
+    <a class="nav-cta" href="https://elephanttortoise.lemonsqueezy.com/checkout/buy/bb668591-6182-497e-abdf-b5db90f41bda">Get Started — $15/mo</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Built for Collin County Agents</div>
+    <h1>Prove Your Local Expertise.<br><span>Automatically.</span></h1>
+    <p>A copy-paste widget that shows live neighborhood market stats on your website — updated weekly, zero maintenance.</p>
+    <a class="hero-cta" href="https://elephanttortoise.lemonsqueezy.com/checkout/buy/bb668591-6182-497e-abdf-b5db90f41bda">Get Started for $15/month</a>
+    <div class="hero-sub">Cancel anytime &nbsp;·&nbsp; Works on any website</div>
+  </section>
+
+  <!-- LIVE DEMO -->
+  <section class="demo">
+    <h2>Live Data. Right Now.</h2>
+    <p>This is a real widget pulling real stats for McKinney 75070.</p>
+    <div class="demo-widget">
+      <div id="market-stats-widget"></div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section">
+    <div class="section-label">The Problem</div>
+    <h2>Agents need to prove local expertise — but the tools are too expensive or too complicated.</h2>
+    <p>Big platforms like kvCORE or BoomTown cost hundreds per month and do way more than you need. All you want is a clean stats block on your website that updates itself. That's it.</p>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="features-inner">
+      <div class="section-label" style="text-align:center">What You Get</div>
+      <h2 style="text-align:center;margin-bottom:48px">Everything you need. Nothing you don't.</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">📊</div>
+          <h3>Weekly Market Stats</h3>
+          <p>Median list price, median sale price, active listings, and days on market — updated every week.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📍</div>
+          <h3>Hyper-Local Coverage</h3>
+          <p>17 zip codes across McKinney, Frisco, Plano, Allen, and Prosper. Your market, your data.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <h3>Two-Minute Setup</h3>
+          <p>Copy two lines of code onto your website. No developer needed, works on any platform.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔄</div>
+          <h3>Set It and Forget It</h3>
+          <p>Data refreshes automatically every week. You never have to touch it again.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CODE SNIPPET -->
+  <section class="code-section">
+    <h2>Two lines of code.</h2>
+    <p>Paste this anywhere on your website — Squarespace, WordPress, Wix, custom HTML, anywhere.</p>
+    <pre><span style="color:#9ca3af">&lt;!-- Paste this where you want the widget --&gt;</span>
+&lt;div id="market-stats-widget"&gt;&lt;/div&gt;
+&lt;script&gt;
+  window.MarketStats = { apiKey: <span style="color:#86efac">'your-api-key'</span>, zip: <span style="color:#86efac">'75070'</span> };
+&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/marras0914/water-lemon@main/widget/widget.js"&gt;&lt;/script&gt;</pre>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <h2>Simple Pricing</h2>
+    <p>One plan. One price. No surprises.</p>
+    <div class="pricing-card">
+      <div class="pricing-amount">$15<span>/month</span></div>
+      <div class="pricing-desc">Everything included. Cancel anytime.</div>
+      <ul class="pricing-features">
+        <li>Live widget for your website</li>
+        <li>REST API access</li>
+        <li>17 Collin County zip codes</li>
+        <li>Weekly data updates</li>
+        <li>Email support</li>
+      </ul>
+      <a class="pricing-btn" href="https://elephanttortoise.lemonsqueezy.com/checkout/buy/bb668591-6182-497e-abdf-b5db90f41bda">Get Started</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>Market Stats &copy; 2026</div>
+    <div>Data provided by <a href="https://redfin.com" style="text-decoration:underline">Redfin</a></div>
+  </footer>
+
+  <!-- Live demo widget -->
+  <script>
+    window.MarketStats = { apiKey: 'wl_test123', zip: '75070' };
+  </script>
+  <script src="https://cdn.jsdelivr.net/gh/marras0914/water-lemon@main/widget/widget.js"></script>
+
+</body>
+</html>
