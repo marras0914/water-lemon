@@ -1,22 +1,24 @@
 # Active Context
 
-Last updated: 2026-03-21
+Last updated: 2026-03-22
 
 ## Current state
 
-Phases 1–3 are working. Lemon Squeezy test webhook succeeded. Store is pending LS review for live payments (1-3 days).
+All 5 phases complete. Product is live and waiting for:
+- DNS propagation for waterlemon.live (in progress)
+- Lemon Squeezy store review for live payments (1-3 days)
 
 ## What just shipped
 
-- `ls-webhook` Edge Function — provisions/revokes API keys on LS subscription events
-- `get-key` Edge Function — post-checkout page that shows the customer their key
-- `widget/widget.js` — embeddable vanilla JS stats card
-- CORS headers added to `market-stats` Edge Function (needed for browser widget)
+- Landing page live at marras0914.github.io/water-lemon (moving to waterlemon.live)
+- Custom domain registered: waterlemon.live (Squarespace registrar)
+- GitHub Actions secrets set (SUPABASE_URL, SUPABASE_SERVICE_KEY) — weekly cron active
+- Permanent demo key `wl_demo_live` in api_keys for landing page widget
+- Test key `wl_test123` deleted
 
 ## Immediate TODOs
 
-- [ ] Redeploy `market-stats` in Supabase dashboard (CORS update)
-- [ ] Create public `widget` bucket in Supabase Storage, upload widget.js
-- [ ] Test full widget embed in a local HTML file
-- [ ] Landing page (Phase 5)
-- [ ] Wait for Lemon Squeezy store review to go live
+- [ ] Confirm waterlemon.live is live after DNS propagates
+- [ ] Enable HTTPS in GitHub Pages once domain verifies
+- [ ] Wait for Lemon Squeezy store approval
+- [ ] Start marketing: DFW agent Facebook groups, ActiveRain, Collin County AR

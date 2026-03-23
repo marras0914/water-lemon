@@ -13,6 +13,8 @@ interface RedfinRow {
   MEDIAN_SALE_PRICE: string;
   INVENTORY: string;
   MEDIAN_DOM: string;
+  HOMES_SOLD: string;
+  MONTHS_OF_SUPPLY: string;
   [key: string]: string;
 }
 
@@ -24,6 +26,8 @@ export interface MarketStat {
   median_sale_price: number | null;
   active_listings: number | null;
   avg_days_on_market: number | null;
+  homes_sold: number | null;
+  months_of_supply: number | null;
   data_source: string;
 }
 
@@ -71,6 +75,8 @@ export async function fetchRedfinStats(): Promise<MarketStat[]> {
           median_sale_price: toFloat(row.MEDIAN_SALE_PRICE),
           active_listings: toInt(row.INVENTORY),
           avg_days_on_market: toInt(row.MEDIAN_DOM),
+          homes_sold: toInt(row.HOMES_SOLD),
+          months_of_supply: toFloat(row.MONTHS_OF_SUPPLY),
           data_source: 'redfin',
         });
       })

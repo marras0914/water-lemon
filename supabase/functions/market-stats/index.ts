@@ -40,7 +40,7 @@ Deno.serve(async (req: Request) => {
   let query = supabase
     .from('market_stats')
     .select(
-      'zip_code, neighborhood_name, period_date, median_list_price, median_sale_price, active_listings, avg_days_on_market'
+      'zip_code, neighborhood_name, period_date, median_list_price, median_sale_price, active_listings, avg_days_on_market, homes_sold, months_of_supply'
     )
     .order('period_date', { ascending: false });
 
