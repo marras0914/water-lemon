@@ -4,12 +4,21 @@
     <meta charset="utf-8" />
     <title>Widget Test</title>
   </head>
-  <body>
-    <h2>Widget Test</h2>
-    <div id="market-stats-widget"></div>
+  <body style="font-family:sans-serif;padding:40px;display:flex;flex-direction:column;gap:32px">
+    <div>
+      <h3 style="margin-bottom:12px">Stats Widget</h3>
+      <div id="market-stats-widget"></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:12px">Temperature Badge</h3>
+      <div id="market-stats-badge"></div>
+    </div>
+
     <script>
-      window.MarketStats = { apiKey: "wl_test123", zip: "75070" };
+      window.MarketStats = { apiKey: 'wl_demo_live', zip: '75070' };
+      window.MarketStatsBadge = { apiKey: 'wl_demo_live', zip: '75070' };
     </script>
     <script src="https://cdn.jsdelivr.net/gh/marras0914/water-lemon@main/widget/widget.js"></script>
+    <script src="/badge.js"></script>
   </body>
 </html>

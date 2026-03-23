@@ -11,10 +11,13 @@
   }
 
   function getTemp(dom, mos) {
-    if (dom == null || mos == null) return { label: 'Active', emoji: '📊', color: '#6b7280', bg: '#f3f4f6' };
-    if (dom <= 30 && mos <= 2)  return { label: 'Hot Market',  emoji: '🔥', color: '#b91c1c', bg: '#fef2f2' };
-    if (dom <= 60 && mos <= 4)  return { label: 'Warm Market', emoji: '☀️', color: '#b45309', bg: '#fffbeb' };
-    return                             { label: 'Cool Market', emoji: '❄️', color: '#1d4ed8', bg: '#eff6ff' };
+    if (dom == null) return { label: 'Active', emoji: '📊', color: '#6b7280', bg: '#f3f4f6' };
+    // Use months_of_supply as secondary signal only when available
+    var mosHot  = mos == null || mos <= 2;
+    var mosWarm = mos == null || mos <= 4;
+    if (dom <= 30 && mosHot)  return { label: 'Hot Market',  emoji: '🔥', color: '#b91c1c', bg: '#fef2f2' };
+    if (dom <= 60 && mosWarm) return { label: 'Warm Market', emoji: '☀️', color: '#b45309', bg: '#fffbeb' };
+    return                           { label: 'Cool Market', emoji: '❄️', color: '#1d4ed8', bg: '#eff6ff' };
   }
 
   function render(data) {
