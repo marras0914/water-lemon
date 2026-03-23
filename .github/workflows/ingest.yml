@@ -19,7 +19,15 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run ingest
+      - name: Run ingest
+        run: npm run ingest >> $GITHUB_STEP_SUMMARY
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "## Ingest Failed" >> $GITHUB_STEP_SUMMARY
+          echo "Check the logs above for details." >> $GITHUB_STEP_SUMMARY
+          echo "Common causes: Redfin file format changed, Supabase connection failed, secrets missing." >> $GITHUB_STEP_SUMMARY

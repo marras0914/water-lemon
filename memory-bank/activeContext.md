@@ -4,21 +4,22 @@ Last updated: 2026-03-22
 
 ## Current state
 
-All 5 phases complete. Product is live and waiting for:
-- DNS propagation for waterlemon.live (in progress)
-- Lemon Squeezy store review for live payments (1-3 days)
+Product is live. DNS propagating for waterlemon.live. Lemon Squeezy store pending review.
+Post-launch additions in progress: market temperature badge + trend chart planned.
 
 ## What just shipped
 
-- Landing page live at marras0914.github.io/water-lemon (moving to waterlemon.live)
-- Custom domain registered: waterlemon.live (Squarespace registrar)
-- GitHub Actions secrets set (SUPABASE_URL, SUPABASE_SERVICE_KEY) — weekly cron active
-- Permanent demo key `wl_demo_live` in api_keys for landing page widget
-- Test key `wl_test123` deleted
+- Market temperature badge (`widget/badge.js`) — Hot/Warm/Cool based on days on market
+- `homes_sold` + `months_of_supply` added to schema and ingest
+- Badge added to landing page demo section
+- `ls-webhook` updated: reactivates existing key on resubscribe (so agents don't need to update embed code after pause/cancel/resubscribe)
+- Redfin column names confirmed uppercase (e.g. `REGION`, `PROPERTY_TYPE`)
+- REGION format confirmed as "Zip Code: 75070" — stripped in ingest
 
 ## Immediate TODOs
 
-- [ ] Confirm waterlemon.live is live after DNS propagates
-- [ ] Enable HTTPS in GitHub Pages once domain verifies
+- [ ] Redeploy `ls-webhook` in Supabase dashboard (reactivate-on-resubscribe fix)
+- [ ] Confirm waterlemon.live + HTTPS once DNS fully propagates
 - [ ] Wait for Lemon Squeezy store approval
-- [ ] Start marketing: DFW agent Facebook groups, ActiveRain, Collin County AR
+- [ ] Build trend chart widget (6-month sparkline, pure SVG)
+- [ ] Post in DFW agent Facebook groups once domain + HTTPS live
