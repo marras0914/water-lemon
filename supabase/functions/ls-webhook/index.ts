@@ -45,17 +45,37 @@ Deno.serve(async (req: Request) => {
   const subscriptionId = String(event.data?.id);
 
   if (eventName === 'subscription_created') {
-    const key = generateApiKey();
-    const { error } = await supabase
+    // Reactivate existing key if one exists (e.g. resubscribe after pause/cancel)
+    // so the agent doesn't need to update their embed code
+    const { data: existing } = await supabase
       .from('api_keys')
-      .insert({ key, subscriber_id: subscriptionId, active: true });
+      .select('id')
+      .eq('subscriber_id', subscriptionId)
+      .single();
 
-    if (error) {
-      console.error('Failed to insert api_key:', error);
-      return new Response('DB error', { status: 500 });
+    if (existing) {
+      const { error } = await supabase
+        .from('api_keys')
+        .update({ active: true })
+        .eq('subscriber_id', subscriptionId);
+
+      if (error) {
+        console.error('Failed to reactivate api_key:', error);
+        return new Response('DB error', { status: 500 });
+      }
+      console.log(`Reactivated key for subscription ${subscriptionId}`);
+    } else {
+      const key = generateApiKey();
+      const { error } = await supabase
+        .from('api_keys')
+        .insert({ key, subscriber_id: subscriptionId, active: true });
+
+      if (error) {
+        console.error('Failed to insert api_key:', error);
+        return new Response('DB error', { status: 500 });
+      }
+      console.log(`Provisioned key for subscription ${subscriptionId}`);
     }
-
-    console.log(`Provisioned key for subscription ${subscriptionId}`);
   }
 
   if (

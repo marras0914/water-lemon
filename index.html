@@ -247,9 +247,12 @@
   <!-- LIVE DEMO -->
   <section class="demo">
     <h2>Live Data. Right Now.</h2>
-    <p>This is a real widget pulling real stats for McKinney 75070.</p>
-    <div class="demo-widget">
-      <div id="market-stats-widget"></div>
+    <p>Real widgets pulling real stats for McKinney 75070.</p>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+      <div id="market-stats-badge"></div>
+      <div class="demo-widget">
+        <div id="market-stats-widget"></div>
+      </div>
     </div>
   </section>
 
@@ -326,11 +329,13 @@
     <div>Data provided by <a href="https://redfin.com" style="text-decoration:underline">Redfin</a></div>
   </footer>
 
-  <!-- Live demo widget -->
+  <!-- Live demo widgets -->
   <script>
     window.MarketStats = { apiKey: 'wl_demo_live', zip: '75070' };
+    window.MarketStatsBadge = { apiKey: 'wl_demo_live', zip: '75070' };
   </script>
   <script src="https://cdn.jsdelivr.net/gh/marras0914/water-lemon@main/widget/widget.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/marras0914/water-lemon@main/widget/badge.js"></script>
 
 </body>
 </html>
