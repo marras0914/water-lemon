@@ -1,63 +1,49 @@
-# Project Plan: Hyper-Local Real Estate Data API
+# Project Roadmap: waterlemon.live
 
 ## The Concept
 
-A "set it and forget it" micro-SaaS providing live, hyper-local real estate market statistics. It replaces expensive, clunky all-in-one platforms with a simple, embeddable data feed for independent real estate agents in highly competitive markets.
+A "set it and forget it" micro-SaaS providing live, hyper-local real estate market statistics. Replaces expensive all-in-one platforms with a simple, embeddable data feed for independent real estate agents in highly competitive DFW markets.
 
 ## Target Audience & Problem
 
-- **Audience:** The 11,000+ real estate agents in Collin County (McKinney, Frisco, Plano) and the broader DFW metroplex.
-- **Problem:** Agents need to prove local expertise on their personal websites but lack an affordable, automated way to display live neighborhood stats (median price, days on market, active inventory).
-- **Solution:** A $15/month subscription for a copy-and-paste JavaScript widget or REST API endpoint that auto-updates daily.
+- **Audience:** Real estate agents across the DFW metroplex (Collin County, Dallas, Denton County, Tarrant County)
+- **Problem:** Agents need to prove local expertise on their personal websites but lack an affordable, automated way to display live neighborhood stats
+- **Solution:** $15/month for a copy-and-paste JavaScript widget or REST API that auto-updates weekly
 
 ## Tech Stack
 
-| Component          | Technology      | Purpose                                                        |
-| :----------------- | :-------------- | :------------------------------------------------------------- |
-| **Language**       | TypeScript      | Core logic for scraping and data formatting                    |
-| **Scraper**        | Cheerio + Axios | Fast, lightweight HTML parsing                                 |
-| **Automation**     | GitHub Actions  | Free cron jobs to run the scraper daily                        |
-| **Database & API** | Supabase        | PostgreSQL storage and automatic REST API via PostgREST        |
-| **Billing**        | Lemon Squeezy   | Merchant of Record to handle subscriptions and local sales tax |
+| Component | Technology | Purpose |
+|:---|:---|:---|
+| **Language** | TypeScript (ESM, Node 24) | Ingest + key generation |
+| **Data Source** | Redfin public S3 data | Free, stable, 50 DFW zip codes |
+| **Automation** | GitHub Actions | Weekly cron ingest |
+| **Database + API** | Supabase | PostgreSQL + Edge Functions |
+| **Billing** | Lemon Squeezy | Subscriptions + Merchant of Record |
+| **Widget CDN** | jsDelivr (via GitHub) | widget.js, badge.js, chart.js |
 
-## Database Schema
+## Completed
 
-The core `market_stats` table in Supabase tracks daily metrics to build historical trends over time.
+- [x] Phase 1 — Data pipeline (Redfin stream ingest, 50 DFW zips, weekly cron)
+- [x] Phase 2 — API + auth (market-stats Edge Function, API key gate, CORS)
+- [x] Phase 3 — Billing (Lemon Squeezy webhooks, key provisioning/revocation/reactivation)
+- [x] Phase 4 — Widgets (stats card, temperature badge, trend chart)
+- [x] Phase 5 — Launch (landing page at waterlemon.live, GitHub Pages + custom domain)
+- [x] Ingest alerting (job summary, silent failure guard)
+- [x] Free trial keys (trial + notes columns on api_keys)
 
-```sql
-CREATE TABLE market_stats (
-  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
-  zip_code text NOT NULL,
-  neighborhood_name text,
-  median_list_price numeric,
-  active_listings integer,
-  avg_days_on_market integer,
-  data_source text
-);
+## Roadmap
 
-CREATE INDEX idx_zip_code ON market_stats(zip_code);
-```
+### Near-term
+- [ ] **Free trial flow** — formal trial system with expiry date, auto-prompt to subscribe
+- [ ] **Trend chart on landing page** — once 3+ months of data accumulate
+- [ ] **Warm outreach** — Matt (neighbor), Steve McCoy (our agent), Facebook groups, ActiveRain
+- [ ] **Collin County AR vendor program** — apply once first paying customers confirmed
 
-Phase 1: Data Acquisition (MVP)
-Identify a reliable, public-facing real estate search site with HTML-rendered results.
+### Medium-term
+- [ ] **Monthly PDF report** — auto-generated, agent-branded, email-ready ($49/month tier)
+- [ ] **Neighborhood comparison widget** — side-by-side stats for 2-3 zips
+- [ ] **RentCast API** — secondary data source for zips Redfin doesn't cover well (~$50/month at scale)
 
-Write the scraper.ts function to extract median list price, active listings, and average days on market for target zip codes (e.g., 75071, 75070).
-
-Test the script locally to ensure clean insertion into the Supabase database.
-
-Deploy a .github/workflows/scrape.yml file to run the script automatically every night at 2:00 AM.
-
-Phase 2: Distribution & Integration
-Utilize Supabase's built-in PostgREST API to securely expose read-only endpoints.
-
-Build a lightweight, vanilla JavaScript widget that fetches this endpoint and renders a clean, styled HTML stat block.
-
-Document the simple <script> tag installation process for agents using Webflow, WordPress, or Squarespace.
-
-Phase 3: Monetization & Launch
-Set up a Lemon Squeezy storefront with a $15/month subscription tier.
-
-Build a simple landing page showcasing a live demo of the widget using local McKinney data.
-
-Reach out to local brokerages or run targeted social ads to DFW agents emphasizing "Hyper-Local Market Authority."
+### Long-term
+- [ ] **NTREIS data license** — MLS-accurate data, premium tier positioning
+- [ ] **Expand coverage** — Houston, Austin, San Antonio agent markets
