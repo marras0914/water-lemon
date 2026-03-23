@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createGunzip } from 'zlib';
 import { parse } from 'csv-parse';
-import { TARGET_ZIPS, REDFIN_URL, PROPERTY_TYPE } from '../config.js';
+import { TARGET_ZIPS, REDFIN_URL, PROPERTY_TYPE, ZIP_NAMES } from '../config.js';
 
 interface RedfinRow {
   PERIOD_END: string;
@@ -69,7 +69,7 @@ export async function fetchRedfinStats(): Promise<MarketStat[]> {
 
         latest.set(zip, {
           zip_code: zip,
-          neighborhood_name: row.CITY,
+          neighborhood_name: row.CITY || ZIP_NAMES[zip] || zip,
           period_date: periodDate,
           median_list_price: toFloat(row.MEDIAN_LIST_PRICE),
           median_sale_price: toFloat(row.MEDIAN_SALE_PRICE),
