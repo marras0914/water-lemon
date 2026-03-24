@@ -3,33 +3,41 @@
 ## Done
 
 - [x] Concept + ROADMAP defined
-- [x] Data source decision: Redfin public S3 data (free, stable URL, no scraping)
-- [x] Target zip codes identified (17 zips: McKinney, Frisco, Plano, Allen, Prosper)
+- [x] Data source: Redfin public S3 (free, stable, weekly)
+- [x] 50 DFW zip codes (Collin County, Dallas, Denton, Tarrant)
+- [x] ZIP_NAMES lookup — city names for all zips
 - [x] TypeScript project scaffolded (ESM, tsx, Node 24)
-- [x] Redfin stream ingest working end-to-end (17 zip codes, upserted to Supabase)
-- [x] Supabase schema migration (market_stats + api_keys tables)
+- [x] Redfin stream ingest — 50 zips, all fields including homes_sold + months_of_supply
+- [x] Supabase schema (market_stats + api_keys with trial + notes columns)
 - [x] GitHub Actions cron live (secrets set, runs every Monday 10:00 UTC)
-- [x] `market-stats` Edge Function live — gated by API key, CORS enabled
-- [x] `ls-webhook` Edge Function — provisions/revokes/reactivates keys on LS events
-- [x] `get-key` Edge Function — post-checkout key delivery page
+- [x] Ingest alerting: silent failure guard + job summary table
+- [x] market-stats Edge Function — API key gate, CORS
+- [x] ls-webhook Edge Function — provisions/reactivates/revokes keys
+- [x] get-key Edge Function — post-checkout key delivery
 - [x] Lemon Squeezy webhook test succeeded
-- [x] `widget/widget.js` — stats card, live via jsDelivr CDN
-- [x] `widget/badge.js` — market temperature badge (Hot/Warm/Cool), live via jsDelivr CDN
-- [x] `homes_sold` + `months_of_supply` added to schema + ingest
-- [x] Landing page at waterlemon.live (DNS propagating)
-- [x] Custom domain waterlemon.live (Squarespace registrar)
-- [x] Permanent demo key (wl_demo_live) on landing page
-- [x] Repo at github.com/marras0914/water-lemon
+- [x] widget.js — stats card
+- [x] badge.js — market temperature (Hot/Warm/Cool)
+- [x] chart.js — 6-month trend sparkline (SVG)
+- [x] Landing page at waterlemon.live
+- [x] Free trial keys: wl_matt_free, wl_steve_free
+- [x] Outreach drafts: Matt (text), Steve McCoy (email), Facebook, ActiveRain
+- [x] Landing page CTAs updated to "Try Free for 30 Days" + 30-day trial messaging
+- [x] Demo key wl_demo_live inserted in api_keys (subscriber_id='demo')
+- [x] Code snippet on landing page uses wl_demo_live — functional for any visitor
 
 ## Pending
 
-- [ ] waterlemon.live DNS fully propagated + HTTPS enforced
-- [ ] Lemon Squeezy store approval for live payments
-- [ ] Redeploy ls-webhook with reactivate-on-resubscribe fix
+- [x] Sent outreach to Matt (text) + Steve McCoy (email) — 2026-03-23
+- [ ] Post Facebook groups + ActiveRain (Tuesday 2026-03-24, 7-9am CST)
+- [x] waterlemon.live HTTPS confirmed and live
+- [ ] Lemon Squeezy store approval
+- [ ] Push index.html changes to main (CDN pick-up)
 
-## Post-launch / Roadmap
+## Roadmap
 
-- [ ] Trend chart widget (6-month sparkline, pure SVG)
-- [ ] DFW agent Facebook groups outreach
-- [ ] ActiveRain posts
-- [ ] Collin County Association of Realtors vendor program
+- [ ] Formal trial flow with expiry date + subscribe prompt
+- [ ] Trend chart on landing page (after 3+ months data)
+- [ ] Monthly PDF report tier ($49/month)
+- [ ] Neighborhood comparison widget
+- [ ] Collin County AR vendor program
+- [ ] RentCast as secondary data source for sparse zips

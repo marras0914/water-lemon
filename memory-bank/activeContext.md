@@ -4,22 +4,36 @@ Last updated: 2026-03-22
 
 ## Current state
 
-Product is live. DNS propagating for waterlemon.live. Lemon Squeezy store pending review.
-Post-launch additions in progress: market temperature badge + trend chart planned.
+Product is live at waterlemon.live. 50 DFW zip codes ingesting cleanly with city names.
+Lemon Squeezy store pending review. DNS + HTTPS on waterlemon.live propagating.
 
-## What just shipped
+## What just shipped (2026-03-23)
 
-- Market temperature badge (`widget/badge.js`) — Hot/Warm/Cool based on days on market
-- `homes_sold` + `months_of_supply` added to schema and ingest
-- Badge added to landing page demo section
-- `ls-webhook` updated: reactivates existing key on resubscribe (so agents don't need to update embed code after pause/cancel/resubscribe)
-- Redfin column names confirmed uppercase (e.g. `REGION`, `PROPERTY_TYPE`)
-- REGION format confirmed as "Zip Code: 75070" — stripped in ingest
+- Expanded to 50 zip codes (Collin County, Dallas, Denton, Tarrant)
+- ZIP_NAMES lookup map — fixes empty neighborhood_name from Redfin
+- Ingest alerting: silent failure guard, job summary table in GitHub Actions
+- Market temperature badge (Hot/Warm/Cool) live on landing page
+- homes_sold + months_of_supply added to schema and ingest
+- ls-webhook: reactivates existing key on resubscribe (no embed code change needed)
+- Free trial keys for Matt (wl_matt_free) and Steve McCoy (wl_steve_free)
+- chart.js trend chart widget written (needs 3+ months of data to look great)
+- ROADMAP.md updated with completed items + full roadmap
+- Outreach drafts saved in marketing/ folder
+
+## What just shipped (2026-03-24)
+
+- Landing page CTAs updated to "Try Free for 30 Days" (nav, hero, pricing card)
+- Pricing desc: "30-day free trial. Then $15/month. Cancel anytime."
+- Code snippet on landing page now uses wl_demo_live — any visitor can copy and get a working widget
+- wl_demo_live inserted into api_keys in Supabase (subscriber_id='demo', active=true)
+- Facebook + ActiveRain posts finalized with tags + meta description
 
 ## Immediate TODOs
 
-- [ ] Redeploy `ls-webhook` in Supabase dashboard (reactivate-on-resubscribe fix)
-- [ ] Confirm waterlemon.live + HTTPS once DNS fully propagates
+- [x] Sent text to Matt (neighbor) — 2026-03-23
+- [x] Sent email to Steve McCoy — 2026-03-23
+- [ ] Push index.html to main (CDN pick-up)
+- [ ] Post in DFW Facebook groups Tuesday 2026-03-24 7-9am CST
+- [ ] Post on ActiveRain Tuesday 2026-03-24 7-9am CST
+- [x] waterlemon.live HTTPS confirmed and live
 - [ ] Wait for Lemon Squeezy store approval
-- [ ] Build trend chart widget (6-month sparkline, pure SVG)
-- [ ] Post in DFW agent Facebook groups once domain + HTTPS live
