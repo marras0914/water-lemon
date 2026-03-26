@@ -46,7 +46,7 @@
 
   var style = document.createElement('style');
   style.textContent = [
-    '.msw{font-family:sans-serif;border:1px solid #e5e7eb;border-radius:10px;padding:20px;max-width:440px;box-sizing:border-box}',
+    '.msw{font-family:sans-serif;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:20px;max-width:440px;box-sizing:border-box}',
     '.msw-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}',
     '.msw-location{font-weight:700;font-size:15px;color:#111827}',
     '.msw-period{font-size:12px;color:#9ca3af}',
